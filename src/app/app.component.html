@@ -1,3 +1,24 @@
-<h1>
-  Welcome to {{ title }}!
-</h1>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Third Line</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">favorite</mat-icon>
+    <mat-icon class="example-icon">delete</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div>
+  <mat-form-field class="example-form-field">
+    <input matInput
+           type="text"
+           [(ngModel)]="value"
+           class="search">
+    <button mat-button
+            *ngIf="value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

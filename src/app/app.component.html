@@ -6,19 +6,4 @@
     <mat-icon class="example-icon">delete</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
-<div>
-  <mat-form-field class="example-form-field">
-    <input matInput
-           type="text"
-           [(ngModel)]="value"
-           class="search">
-    <button mat-button
-            *ngIf="value"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-</div>
+<app-main></app-main>

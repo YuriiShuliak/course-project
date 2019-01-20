@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatToolbarModule } from '@angular/material';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
   MatIconModule,
   MatInputModule,
   MatFormFieldModule,
-  MatButtonModule
+  MatButtonModule,
+  MatAutocompleteModule
 ];
 
 @NgModule({

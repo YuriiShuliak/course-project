@@ -1,0 +1,29 @@
+<form class="example-form">
+  <mat-form-field class="example-form-field">
+    <input matInput
+           type="text"
+           aria-label="Number"
+           class="search"
+           [formControl]="myControl"
+           [matAutocomplete]="auto"
+           placeholder="Name of city">
+    <mat-autocomplete autoActiveFirstOption
+                      #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async"
+                  [value]="option.name">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+    <button mat-button
+            *ngIf="myControl.value"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="this.myControl.setValue('')">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+<button mat-raised-button
+        class="search-btn"
+        color="primary">Search</button>

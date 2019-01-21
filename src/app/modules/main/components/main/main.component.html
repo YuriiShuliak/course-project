@@ -1,29 +1,55 @@
-<form class="example-form">
-  <mat-form-field class="example-form-field">
-    <input matInput
-           type="text"
-           aria-label="Number"
-           class="search"
-           [formControl]="myControl"
-           [matAutocomplete]="auto"
-           placeholder="Name of city">
-    <mat-autocomplete autoActiveFirstOption
-                      #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async"
-                  [value]="option.name">
-        {{option.name}}
-      </mat-option>
-    </mat-autocomplete>
-    <button mat-button
-            *ngIf="myControl.value"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="this.myControl.setValue('')">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-</form>
-<button mat-raised-button
-        class="search-btn"
-        color="primary">Search</button>
+<div class="search-container">
+  <form class="example-form">
+    <mat-form-field class="example-form-field">
+      <input matInput
+             type="text"
+             aria-label="Number"
+             class="search"
+             [formControl]="myControl"
+             [matAutocomplete]="auto"
+             placeholder="Name of city">
+      <mat-autocomplete autoActiveFirstOption
+                        #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async"
+                    [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+      <button mat-button
+              *ngIf="myControl.value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="this.myControl.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  <button mat-raised-button
+          class="search-btn"
+          [disabled]="isCorrectCity"
+          (click)=getCityWeather(this.myControl.value)
+          color="primary">Search</button>
+</div>
+<mat-spinner *ngIf="showSpinner"></mat-spinner>
+
+
+<div class="weather-container"
+     *ngIf="cityCurrentWeather">
+  <mat-card class="current-weather">
+    <img src="http://openweathermap.org/img/w/{{ cityCurrentWeather.weather[0].icon }}.png"
+         alt="">
+    <h2>{{ cityCurrentWeather.name }}</h2>
+    <h2>{{ round(cityCurrentWeather.main.temp) }}</h2>
+    <span>{{ round(cityCurrentWeather.main.pressure / 1.3333) }}</span>
+    <span>{{ cityCurrentWeather.main.humidity }}</span>
+    <span>{{ cityCurrentWeather.weather[0].main }}</span>
+    <span>{{ cityCurrentWeather.weather[0].description }}</span>
+    <span>{{ cityCurrentWeather.wind.speed }}</span>
+    <span>{{ cityCurrentWeather.wind.deg }}</span>
+    <span>{{ cityCurrentWeather.dt*1000 | date: 'medium' }}</span>
+    <span>{{ cityCurrentWeather.sys.sunrise*1000 | date: 'medium' }}</span>
+    <span>{{ cityCurrentWeather.sys.sunset*1000| date: 'medium' }}</span>
+  </mat-card>
+  <mat-card class="current-forecast"></mat-card>
+</div>

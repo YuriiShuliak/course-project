@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ICity, ICityWeather } from 'src/app/modules/common/models/weather.model';
+import { WeatherService } from 'src/app/modules/common/services/weather.service';
 
-export interface ICity {
-  name: string;
-  id: number;
-}
+
 
 @Component({
   selector: 'app-main',
@@ -14,7 +13,9 @@ export interface ICity {
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  value = '';
+  showSpinner: boolean = false;
+  cityCurrentWeather: ICityWeather;
+  isCorrectCity: boolean = false;
   myControl = new FormControl();
   options: ICity[] = [{
     name: 'Kiev',
@@ -37,18 +38,48 @@ export class MainComponent implements OnInit {
     id: 706448
   }];
   filteredOptions: Observable<ICity[]>;
-  constructor() { }
+
+  constructor(private _weatherService: WeatherService) {
+
+  }
 
   ngOnInit() {
+    this.getCityWeather('Kiev');
     this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith('1'),
+      startWith(''),
       map(value => this._filter(value))
     );
+
   }
   private _filter(value: string): ICity[] {
     const filterValue = value.toLowerCase();
+    let list = this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+    console.log(list.length);
 
-    return this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+    list.length ? this.isCorrectCity = false : this.isCorrectCity = true;
+    console.log(this.isCorrectCity);
+    return list;
   }
+  getCityWeather(cityName: string): void {
+    this.showSpinner = true;
+    let city = this.options.find(o => o.name === cityName);
+    if (!city) {
+      alert('No city in database');
+      return;
+    }
 
+    this._weatherService.getCityWeather(city.id)
+      .subscribe(res => {
+        this.showSpinner = false;
+        this.cityCurrentWeather = res;
+        console.log(this.cityCurrentWeather);
+      }, err => {
+        console.log(err);
+      });
+  }
+  round(value: number): number {
+    return Math.round(value);
+  }
 }
+
+

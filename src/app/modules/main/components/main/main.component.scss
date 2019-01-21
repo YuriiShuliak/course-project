@@ -9,3 +9,22 @@ form {
   margin-top: 10px;
   margin-left: 10px;
 }
+.search-container {
+  display: flex;
+  justify-content: center;
+}
+.weather-container {
+  display: flex;
+}
+.current-weather {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+mat-spinner {
+    position: absolute;
+    top: 40%;
+    z-index: 1;
+    left: 50%;
+}

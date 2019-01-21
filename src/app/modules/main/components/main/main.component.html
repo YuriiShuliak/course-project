@@ -7,6 +7,7 @@
              class="search"
              [formControl]="myControl"
              [matAutocomplete]="auto"
+             (keypress)="onEnter($event)"
              placeholder="Name of city">
       <mat-autocomplete autoActiveFirstOption
                         #auto="matAutocomplete">
@@ -27,7 +28,7 @@
   </form>
   <button mat-raised-button
           class="search-btn"
-          [disabled]="isCorrectCity"
+          [disabled]="!myControl.value || isCorrectCity"
           (click)=getCityWeather(this.myControl.value)
           color="primary">Search</button>
 </div>
@@ -51,5 +52,13 @@
     <span>{{ cityCurrentWeather.sys.sunrise*1000 | date: 'medium' }}</span>
     <span>{{ cityCurrentWeather.sys.sunset*1000| date: 'medium' }}</span>
   </mat-card>
-  <mat-card class="current-forecast"></mat-card>
+  <mat-card class="current-forecast">
+    <mat-tab-group>
+      <mat-tab *ngFor="let item of sortedCityForecast; let i = index"
+               label="{{item[0].dt*1000 | date}}">
+        <span *ngFor="let item of sortedCityForecast[i]">{{ item.dt_txt }}</span>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-card>
 </div>

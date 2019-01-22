@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatTabsModule, MatToolbarModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatDividerModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -11,7 +11,10 @@ const MATERIAL_MODULES = [
   MatAutocompleteModule,
   MatCardModule,
   MatProgressSpinnerModule,
-  MatTabsModule
+  MatTabsModule,
+  MatTableModule,
+  MatDividerModule,
+  MatTooltipModule
 ];
 
 @NgModule({

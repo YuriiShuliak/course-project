@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ICity, ICityWeather } from 'src/app/modules/common/models/weather.model';
 import { WeatherService } from 'src/app/modules/common/services/weather.service';
-
+import { CityList } from './../../../common/models/data.model';
 
 
 @Component({
@@ -19,36 +19,17 @@ export class MainComponent implements OnInit {
   sortedCityForecast: Array<Array<any>> = [];
   isCorrectCity: boolean = false;
   myControl = new FormControl();
-  options: ICity[] = [{
-    name: 'Kiev',
-    id: 703448
-  },
-  {
-    name: 'Lviv',
-    id: 702550
-  },
-  {
-    name: 'Odessa',
-    id: 4166787
-  },
-  {
-    name: 'Kharkiv',
-    id: 706483
-  },
-  {
-    name: 'Kherson',
-    id: 706448
-  }];
   filteredOptions: Observable<ICity[]>;
+  starType: string = 'star_border';
 
-  constructor(private _weatherService: WeatherService) {
+
+  constructor(private _weatherService: WeatherService, private _cityList: CityList) {
 
   }
 
   ngOnInit() {
     this.getCityWeather('Kiev');
     this.getCityForecast('Kiev');
-
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -57,13 +38,13 @@ export class MainComponent implements OnInit {
   }
   private _filter(value: string): ICity[] {
     const filterValue = value.toLowerCase();
-    let list = this.options.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+    let list = this._cityList.cityList.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
     list.length ? this.isCorrectCity = false : this.isCorrectCity = true;
     return list;
   }
   getCityWeather(cityName: string): void {
     this.showSpinner = true;
-    let city = this.options.find(o => o.name === cityName);
+    let city = this._cityList.cityList.find(o => o.name === cityName);
     if (!city) {
       this.showSpinner = false;
       alert('No city in database');
@@ -81,7 +62,7 @@ export class MainComponent implements OnInit {
 
   getCityForecast(cityName: string): void {
     this.showSpinner = true;
-    let city = this.options.find(o => o.name === cityName);
+    let city = this._cityList.cityList.find(o => o.name === cityName);
     if (!city) {
       this.showSpinner = false;
       alert('No city in database');
@@ -103,9 +84,11 @@ export class MainComponent implements OnInit {
   onEnter(event) {
     if (event.keyCode === 13) {
       this.getCityWeather(this.myControl.value);
+      this.getCityForecast(this.myControl.value);
     }
   }
   sortByDate(array: Array<any>) {
+    this.sortedCityForecast = [];
     let date = new Date(array[0].dt * 1000).getDate();
     let j = 0;
     this.sortedCityForecast.push([]);
@@ -120,10 +103,13 @@ export class MainComponent implements OnInit {
         this.sortedCityForecast.push([]);
         this.sortedCityForecast[j].push(array[i]);
       }
-
     }
     console.log(this.sortedCityForecast);
   }
+  addFavorites(): void {
+    this.starType === 'star_border' ? this.starType = 'star' : this.starType = 'star_border';
+  }
 }
+
 
 

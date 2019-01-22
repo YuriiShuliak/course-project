@@ -22,9 +22,36 @@ form {
   flex-direction: column;
   align-items: flex-start;
 }
+.current-forecast {
+  width: 70%;
+}
 mat-spinner {
     position: absolute;
     top: 40%;
-    z-index: 1;
+    z-index: 10;
     left: 50%;
+}
+table {
+  width: 100%;
+}
+tr {
+  height: 56px;
+}
+.temp-icon {
+  display: flex;
+}
+.icon {
+  width: 70px;
+  height: 70px;
+}
+.temp {
+  margin-left: 20px;
+}
+.fav-container {
+  width: 100%;
+  justify-content: flex-end;
+  display: flex;
+}
+.fav-icon {
+  color: gold;
 }

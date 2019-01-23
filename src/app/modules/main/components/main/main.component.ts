@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { ICity, ICityWeather } from 'src/app/modules/common/models/weather.model';
+import { ICity, ICityWeather, IFavorites } from 'src/app/modules/common/models/weather.model';
 import { WeatherService } from 'src/app/modules/common/services/weather.service';
 import { CityList } from './../../../common/models/data.model';
 
@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
   filteredOptions: Observable<ICity[]>;
   starType: string;
   currentCityId: number = 703448;
+  favorites: IFavorites;
 
 
   constructor(private _weatherService: WeatherService, private _cityList: CityList) {
@@ -29,6 +30,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getFavorites();
     this.getCityWeather('Kiev');
     this.getCityForecast('Kiev');
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -51,6 +53,7 @@ export class MainComponent implements OnInit {
       alert('No city in database');
       return;
     }
+    this.currentCityId = city.id;
     this.renderStar();
     this._weatherService.getCityWeather(city.id)
       .subscribe(res => {
@@ -69,7 +72,6 @@ export class MainComponent implements OnInit {
       alert('No city in database');
       return;
     }
-    this.currentCityId = city.id;
     this._weatherService.getCityForecast(city.id)
       .subscribe(res => {
         this.showSpinner = false;
@@ -105,20 +107,34 @@ export class MainComponent implements OnInit {
         this.sortedCityForecast[j].push(array[i]);
       }
     }
-    console.log(this.sortedCityForecast);
   }
-  addFavorites(): void {
-
+  toggleFavorites(): void {
     let city = this._cityList.cityList.find(i => i.id === this.currentCityId);
     city.isFav = !city.isFav;
     city.isFav ? this.starType = 'star' : this.starType = 'star_border';
+    let index = this.favorites.cityId.indexOf(city.id);
+
+    index === -1 ? this.favorites.cityId.push(city.id) : this.favorites.cityId.splice(index, 1);
+    localStorage.setItem("favorites", JSON.stringify(this.favorites));
+
+
 
   }
   renderStar(): void {
     let city = this._cityList.cityList.find(i => i.id === this.currentCityId);
     city.isFav ? this.starType = 'star' : this.starType = 'star_border';
-    console.log(this);
-
+  }
+  getFavorites(): void {
+    if (JSON.parse(localStorage.getItem('favorites'))) {
+      this.favorites = JSON.parse(localStorage.getItem('favorites'));
+    }
+    console.log(this.favorites);
+    this.favorites.cityId.forEach(elem => {
+      this._cityList.cityList.find(i => i.id === elem).isFav = true;
+    });
+  }
+  toggleMatTooltipText(): string {
+    return this.starType === 'star' ? 'Remove from Favorites' : 'Add to Favorites';
   }
 }
 

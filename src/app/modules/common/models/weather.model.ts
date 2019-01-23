@@ -17,3 +17,6 @@ export interface ICityWeather {
   sys: any;
   wind: any;
 }
+export interface IFavorites {
+  cityId: Array<number>;
+}

@@ -40,8 +40,8 @@
   <mat-card class="current-weather mat-elevation-z5">
     <div class="fav-container">
       <button mat-mini-fab
-              matTooltip="Add to Favorites"
-              (click)="addFavorites()"
+              [matTooltip]="toggleMatTooltipText()"
+              (click)="toggleFavorites()"
               color="primery">
         <mat-icon class="fav-icon">{{ starType }}</mat-icon>
       </button>

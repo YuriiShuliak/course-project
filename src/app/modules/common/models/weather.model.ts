@@ -1,6 +1,7 @@
 export interface ICity {
   name: string;
   id: number;
+  isFav: boolean;
 }
 export interface ICityWeather {
   coord: any;

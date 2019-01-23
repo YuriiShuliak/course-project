@@ -20,7 +20,8 @@ export class MainComponent implements OnInit {
   isCorrectCity: boolean = false;
   myControl = new FormControl();
   filteredOptions: Observable<ICity[]>;
-  starType: string = 'star_border';
+  starType: string;
+  currentCityId: number = 703448;
 
 
   constructor(private _weatherService: WeatherService, private _cityList: CityList) {
@@ -50,7 +51,7 @@ export class MainComponent implements OnInit {
       alert('No city in database');
       return;
     }
-
+    this.renderStar();
     this._weatherService.getCityWeather(city.id)
       .subscribe(res => {
         this.showSpinner = false;
@@ -68,7 +69,7 @@ export class MainComponent implements OnInit {
       alert('No city in database');
       return;
     }
-
+    this.currentCityId = city.id;
     this._weatherService.getCityForecast(city.id)
       .subscribe(res => {
         this.showSpinner = false;
@@ -107,7 +108,17 @@ export class MainComponent implements OnInit {
     console.log(this.sortedCityForecast);
   }
   addFavorites(): void {
-    this.starType === 'star_border' ? this.starType = 'star' : this.starType = 'star_border';
+
+    let city = this._cityList.cityList.find(i => i.id === this.currentCityId);
+    city.isFav = !city.isFav;
+    city.isFav ? this.starType = 'star' : this.starType = 'star_border';
+
+  }
+  renderStar(): void {
+    let city = this._cityList.cityList.find(i => i.id === this.currentCityId);
+    city.isFav ? this.starType = 'star' : this.starType = 'star_border';
+    console.log(this);
+
   }
 }
 

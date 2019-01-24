@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
   filteredOptions: Observable<ICity[]>;
   starType: string;
   currentCityId: number = 703448;
-  favorites: IFavorites;
+  favorites: IFavorites = { cityId: [] };
 
 
   constructor(private _weatherService: WeatherService, private _cityList: CityList) {
@@ -112,23 +112,19 @@ export class MainComponent implements OnInit {
     let city = this._cityList.cityList.find(i => i.id === this.currentCityId);
     city.isFav = !city.isFav;
     city.isFav ? this.starType = 'star' : this.starType = 'star_border';
-    let index = this.favorites.cityId.indexOf(city.id);
 
+    let index = this.favorites.cityId.indexOf(city.id);
     index === -1 ? this.favorites.cityId.push(city.id) : this.favorites.cityId.splice(index, 1);
     localStorage.setItem("favorites", JSON.stringify(this.favorites));
-
-
-
   }
   renderStar(): void {
     let city = this._cityList.cityList.find(i => i.id === this.currentCityId);
     city.isFav ? this.starType = 'star' : this.starType = 'star_border';
   }
   getFavorites(): void {
-    if (JSON.parse(localStorage.getItem('favorites'))) {
-      this.favorites = JSON.parse(localStorage.getItem('favorites'));
-    }
-    console.log(this.favorites);
+    if (!JSON.parse(localStorage.getItem('favorites'))) return;
+    this.favorites = JSON.parse(localStorage.getItem('favorites'));
+
     this.favorites.cityId.forEach(elem => {
       this._cityList.cityList.find(i => i.id === elem).isFav = true;
     });

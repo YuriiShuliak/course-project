@@ -1,0 +1,8 @@
+<swiper [config]="config"
+        *ngIf="cityCurrentWeather.length"
+        [(index)]="index">
+  <div *ngFor="let item of favorites.cityId; let i = index">
+    <app-card-favorite [cityCurrentWeather]="cityCurrentWeather[i]"></app-card-favorite>
+  </div>
+
+</swiper>

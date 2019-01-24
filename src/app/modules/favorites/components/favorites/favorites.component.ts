@@ -30,8 +30,6 @@ export class FavoritesComponent implements OnInit {
       .subscribe(res => {
         this.showSpinner = false;
         this.cityCurrentWeather.push(res);
-        console.log(this.cityCurrentWeather[0].name);
-
       }, err => {
         console.log(err);
       });

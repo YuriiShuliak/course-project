@@ -86,7 +86,7 @@
   <mat-card class="current-forecast mat-elevation-z5">
     <mat-tab-group>
       <mat-tab *ngFor="let item of sortedCityForecast; let i = index"
-               label="{{item[0].dt*1000 | date: 'EEEE, dd LLLL'}}">
+               label="{{item[0].dt*1000 | date: 'EEE, dd LLLL'}}">
         <table>
           <tr>
             <td></td>

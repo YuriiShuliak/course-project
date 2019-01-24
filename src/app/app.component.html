@@ -3,8 +3,10 @@
   <mat-toolbar-row>
     <span>{{date | date}}</span>
     <span class="example-spacer"></span>
-    <mat-icon class="example-icon">favorite</mat-icon>
+    <a mat-stroked-button
+       routerLink="{{ routingLink }}"
+       (click)="routingToggle()">{{ routingTitle }}</a>
     <mat-icon class="example-icon">delete</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
-<app-favorites></app-favorites>
+<router-outlet></router-outlet>

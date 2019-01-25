@@ -4,9 +4,23 @@
     <span>{{date | date}}</span>
     <span class="example-spacer"></span>
     <a mat-stroked-button
+       *ngIf="auth.afAuth.user | async"
        routerLink="{{ routingLink }}"
        (click)="routingToggle()">{{ routingTitle }}</a>
-    <mat-icon class="example-icon">delete</mat-icon>
+    <div class="auth-container"
+         *ngIf="auth.afAuth.user | async as user; else showLogin">
+      <button (click)="logout()"
+              mat-icon-button>
+        <mat-icon svgIcon="logout"></mat-icon>
+      </button>
+    </div>
+    <ng-template #showLogin>
+      <button (click)="login()"
+              mat-icon-button>
+        <mat-icon svgIcon="login"></mat-icon>
+
+      </button>
+    </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>

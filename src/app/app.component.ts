@@ -1,5 +1,10 @@
 import { Component, DoCheck } from '@angular/core';
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from '@angular/router';
+import { AuthService } from './modules/common/services/auth.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -11,7 +16,21 @@ export class AppComponent implements DoCheck {
   routingTitle: string = 'Favorites';
   routingLink: string = '/favorites';
 
-  constructor(private router: Router) { }
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      'logout',
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/logout.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      'login',
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/login.svg")
+    );
+  }
 
   ngDoCheck() {
     if (this.router.url === '/favorites') {
@@ -30,5 +49,11 @@ export class AppComponent implements DoCheck {
     }
     this.routingTitle = 'Favorites';
     this.routingLink = '/favorites';
+  }
+  login() {
+    this.auth.login();
+  }
+  logout() {
+    this.auth.logout();
   }
 }

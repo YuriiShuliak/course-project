@@ -13,3 +13,11 @@ app-main {
   flex-direction: column;
   margin-top: 10px;
 }
+.user-photo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.auth-container {
+  display: flex;
+}

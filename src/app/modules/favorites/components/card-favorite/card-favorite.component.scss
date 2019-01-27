@@ -1,4 +1,30 @@
 mat-card {
   width: 300px;
-  height: 500px;
+}
+.delete {
+  display: flex;
+  justify-content: flex-end;
+}
+%container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main-container {
+  @extend %container;
+}
+.item-container {
+  @extend %container;
+  padding: 15px 0;
+}
+.item-name {
+  font-weight: 500;
+  font-size: 17px;
+}
+.wi-wind {
+  font-size: 30px;
+}
+.detailes-btn {
+  margin: 15px auto 0;
+  display: block;
 }

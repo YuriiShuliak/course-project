@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { WindDir } from 'src/app/modules/common/models/data.model';
 import { ICityWeather } from './../../../common/models/weather.model';
 
 @Component({
@@ -10,14 +11,24 @@ export class CardFavoriteComponent implements OnInit {
 
   _currentWeather: ICityWeather;
 
+  @Output()
+  deleteFromFav = new EventEmitter();
+
   @Input()
   set cityCurrentWeather(cityCurrentWeather: ICityWeather) {
     this._currentWeather = cityCurrentWeather;
   }
 
-  constructor() { }
+  constructor(public wDir: WindDir) { }
 
   ngOnInit() {
+
   }
 
+  deleteFromFavorites() {
+    this.deleteFromFav.emit({ id: this._currentWeather.id, name: this._currentWeather.name })
+  }
+  round(value: number): number {
+    return Math.round(value);
+  }
 }

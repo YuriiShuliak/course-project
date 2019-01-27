@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ICity, ICityWeather, IFavorites } from 'src/app/modules/common/models/weather.model';
+import { AuthService } from 'src/app/modules/common/services/auth.service';
 import { WeatherService } from 'src/app/modules/common/services/weather.service';
 import { CityList } from './../../../common/models/data.model';
 
@@ -25,7 +26,7 @@ export class MainComponent implements OnInit {
   favorites: IFavorites = { cityId: [] };
 
 
-  constructor(private _weatherService: WeatherService, private _cityList: CityList) {
+  constructor(private _weatherService: WeatherService, private _cityList: CityList, public auth: AuthService) {
 
   }
 

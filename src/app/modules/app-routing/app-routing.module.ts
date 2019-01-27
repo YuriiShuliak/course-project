@@ -6,7 +6,7 @@ import { FavoritesGuard } from './favorites.guard';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'favorites', component: FavoritesComponent, canActivate: [FavoritesGuard] },
+  { path: 'favorites', component: FavoritesComponent },
   { path: '**', component: MainComponent }
 ];
 

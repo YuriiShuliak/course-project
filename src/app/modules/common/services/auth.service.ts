@@ -7,16 +7,16 @@ import { auth } from 'firebase/app';
 
 export class AuthService {
 
-  isAuth = false;
-  constructor(public afAuth: AngularFireAuth) {
+  isAuth: boolean;
 
+  constructor(public afAuth: AngularFireAuth) {
+    this.afAuth.user.subscribe(res => {
+      this.isAuth = !!res;
+    })
   }
 
-
   login() {
-    this.isAuth = true;
-
-    this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
   logout() {
     this.isAuth = false;

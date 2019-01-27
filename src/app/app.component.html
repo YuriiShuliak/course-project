@@ -3,17 +3,21 @@
   <mat-toolbar-row>
     <span>{{date | date}}</span>
     <span class="example-spacer"></span>
-    <a mat-stroked-button
-       *ngIf="auth.afAuth.user | async"
-       routerLink="{{ routingLink }}"
-       (click)="routingToggle()">{{ routingTitle }}</a>
+
     <div class="auth-container"
-         *ngIf="auth.afAuth.user | async as user; else showLogin">
-      <button (click)="logout()"
-              mat-icon-button>
-        <mat-icon svgIcon="logout"></mat-icon>
-      </button>
+         *ngIf="auth.afAuth.user | async ">
+      <a mat-stroked-button
+         routerLink="{{ routingLink }}"
+         (click)="routingToggle()">{{ routingTitle }}</a>
+      <img class="user-photo"
+           *ngIf="auth.afAuth.auth.currentUser"
+           src="{{ auth.afAuth.auth.currentUser.photoURL }}">
     </div>
+    <button (click)="logout()"
+            *ngIf="auth.afAuth.user | async as user; else showLogin"
+            mat-icon-button>
+      <mat-icon svgIcon="logout"></mat-icon>
+    </button>
     <ng-template #showLogin>
       <button (click)="login()"
               mat-icon-button>
@@ -23,4 +27,4 @@
     </ng-template>
   </mat-toolbar-row>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<router-outlet (deleteFromFav)="deleteFav($event)"></router-outlet>

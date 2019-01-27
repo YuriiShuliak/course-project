@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CityList } from 'src/app/modules/common/models/data.model';
 import { ICityWeather, IFavorites } from 'src/app/modules/common/models/weather.model';
 import { WeatherService } from 'src/app/modules/common/services/weather.service';
 
@@ -13,7 +14,7 @@ export class FavoritesComponent implements OnInit {
   favorites: IFavorites = { cityId: [] };
   cityCurrentWeather: ICityWeather[] = [];
 
-  constructor(private _weatherService: WeatherService) { }
+  constructor(private _weatherService: WeatherService, private _cityList: CityList) { }
 
   ngOnInit() {
     this.getFavorites();
@@ -33,5 +34,11 @@ export class FavoritesComponent implements OnInit {
       }, err => {
         console.log(err);
       });
+  }
+  deleteFav(event) {
+    this.favorites.cityId = this.favorites.cityId.filter(i => i !== event.id);
+    this.cityCurrentWeather = this.cityCurrentWeather.filter(i => i.id !== event.id);
+    localStorage.setItem("favorites", JSON.stringify(this.favorites));
+    this._cityList.cityList.find(i => i.id === event.id).isFav = false;
   }
 }

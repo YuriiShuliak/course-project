@@ -1,2 +1,38 @@
 <mat-card class="mat-elevation-z5"
-          *ngIf="_currentWeather">{{ _currentWeather.name }}</mat-card>
+          *ngIf="_currentWeather">
+  <div class="delete">
+    <button mat-icon-button
+            (click)="deleteFromFavorites()"
+            color="primery">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="main-container">
+    <h1>{{ _currentWeather.name }}</h1>
+    <img src="http://openweathermap.org/img/w/{{ _currentWeather.weather[0].icon }}.png">
+    <h2>{{ round(_currentWeather.main.temp) }}°C</h2>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="item-container">
+    <span class="item-name">Pressure</span>
+    <span>{{ round(_currentWeather.main.pressure / 1.3333) }} mm</span>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="item-container">
+    <span class="item-name">Humidity</span>
+    <span>{{ _currentWeather.main.humidity }} %</span>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="item-container">
+    <span class="item-name">Wind</span>
+    <span>{{ _currentWeather.wind.speed }} m/sec</span>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="item-container">
+    <span class="item-name">Direction</span>
+    <i class="wi wi-wind {{ wDir.windDirection( _currentWeather.wind.deg ) }}"></i>
+  </div>
+  <mat-divider></mat-divider>
+  <button class="detailes-btn"
+          mat-stroked-button>Detailes</button>
+</mat-card>

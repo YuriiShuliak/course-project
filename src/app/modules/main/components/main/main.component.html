@@ -39,7 +39,8 @@
      *ngIf="cityCurrentWeather && cityForecast">
   <mat-card class="current-weather mat-elevation-z5">
     <div class="fav-container">
-      <button mat-mini-fab
+      <button mat-icon-button
+              *ngIf="auth.afAuth.user | async "
               [matTooltip]="toggleMatTooltipText()"
               (click)="toggleFavorites()"
               color="primery">

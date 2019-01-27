@@ -14,10 +14,12 @@ app-main {
   margin-top: 10px;
 }
 .user-photo {
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
+  margin: 0 15px;
 }
 .auth-container {
   display: flex;
+  align-items: center;
 }

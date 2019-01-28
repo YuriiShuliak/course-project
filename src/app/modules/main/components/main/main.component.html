@@ -50,11 +50,11 @@
     <h1>{{ cityCurrentWeather.name }}</h1>
     <div class="weather-wrapper">
       <div class="weather-container-main">
-        <h3>{{ cityCurrentWeather.weather[0].description | titlecase }}</h3>
+        <h3 class="description">{{ cityCurrentWeather.weather[0].description | titlecase }}</h3>
         <img class="icon"
              src="http://openweathermap.org/img/w/{{ cityCurrentWeather.weather[0].icon }}.png"
              alt="WeatherIcon">
-        <h1>{{ round(cityCurrentWeather.main.temp) }}°C</h1>
+        <h1>{{ round(cityCurrentWeather.main.temp) | temp }}<span class="units"> °C</span></h1>
       </div>
       <div class="weather-container">
         <div class="value-container">
@@ -79,8 +79,6 @@
         </div>
       </div>
     </div>
-
-
     <mat-divider class="divider"></mat-divider>
     <div class="value-container">
       <span>{{ cityCurrentWeather.dt*1000 | date: 'dd LLLL y HH:mm' }}</span>
@@ -89,7 +87,7 @@
   <mat-card class="current-forecast mat-elevation-z5">
     <mat-tab-group>
       <mat-tab *ngFor="let item of sortedCityForecast; let i = index"
-               label="{{item[0].dt*1000 | date: 'EEE, dd LLLL'}}">
+               label="{{item[0].dt*1000 | date: 'EEE, dd LLL'}}">
         <table>
           <tr>
             <td></td>
@@ -105,7 +103,7 @@
           <tr>
             <td>Temperature, °C</td>
             <td *ngFor="let item of sortedCityForecast[i]">
-              <h3>{{ round(item.main.temp) }}°</h3>
+              <h3 class="temp">{{ round(item.main.temp) | temp }}°</h3>
             </td>
           </tr>
           <mat-divider></mat-divider>

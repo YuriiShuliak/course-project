@@ -23,7 +23,6 @@ export class CardFavoriteComponent implements OnInit {
   constructor(public wDir: WindDir, private router: Router) { }
 
   ngOnInit() {
-    console.log(this._currentWeather);
 
   }
 

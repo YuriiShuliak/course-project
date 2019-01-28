@@ -12,6 +12,7 @@ form {
 .search-container {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
 .weather-wrapper {
   display: flex;
@@ -20,12 +21,12 @@ form {
 .weather-container-main {
   display: flex;
   flex-direction: column;
-  width: 65%;
+  width: 60%;
 }
 .weather-container {
   display: flex;
   flex-direction: column;
-  width: 35%;
+  width: 40%;
 }
 .current-weather {
   width: 25%;
@@ -60,6 +61,7 @@ tr {
   width: 100%;
   justify-content: flex-end;
   display: flex;
+  height: 40px;
 }
 .fav-icon {
   color: gold;
@@ -69,6 +71,7 @@ tr {
 }
 .wi {
   font-size: 30px;
+  color: #3f51b5;
 }
 .divider {
   position: relative !important;
@@ -88,4 +91,15 @@ h1 {
   margin: 15px 0;
   font-size: 40px;
   font-weight: 400;
+}
+.description {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+.temp {
+  margin: 0;
+  color: #3f51b5;
+  font-size: 20px;
+  font-weight: 500;
 }

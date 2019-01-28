@@ -12,7 +12,7 @@
   <div class="main-container">
     <h3>{{ _currentWeather.weather[0].main}}</h3>
     <img src="http://openweathermap.org/img/w/{{ _currentWeather.weather[0].icon }}.png">
-    <h2>{{ round(_currentWeather.main.temp) }}°C</h2>
+    <h2>{{ round(_currentWeather.main.temp) | temp }}°C</h2>
   </div>
   <mat-divider></mat-divider>
   <div class="item-container">
@@ -27,7 +27,7 @@
   <mat-divider></mat-divider>
   <div class="item-container">
     <span class="item-name">Wind</span>
-    <span>{{ _currentWeather.wind.speed }} m/sec</span>
+    <span>{{ round(_currentWeather.wind.speed) }} m/sec</span>
   </div>
   <mat-divider></mat-divider>
   <div class="item-container">

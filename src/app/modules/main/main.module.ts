@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../common/material/material.module';
 import { WeatherService } from '../common/services/weather.service';
-import { CityList } from './../common/models/data.model';
+import { CityList, WindDir } from './../common/models/data.model';
 import { MainComponent } from './components/main/main.component';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { MainComponent } from './components/main/main.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [WeatherService, CityList],
+  providers: [WeatherService, CityList, WindDir],
   exports: [MainComponent]
 })
 export class MainModule { }

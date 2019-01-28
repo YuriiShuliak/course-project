@@ -29,13 +29,13 @@
   <button mat-raised-button
           class="search-btn"
           [disabled]="!myControl.value || isCorrectCity"
-          (click)="getCityWeather(this.myControl.value);this.getCityForecast(this.myControl.value)"
+          (click)="showWeather(this.myControl.value)"
           color="primary">Search</button>
 </div>
 <mat-spinner *ngIf="showSpinner"></mat-spinner>
 
 
-<div class="weather-container"
+<div class="weather-wrapper"
      *ngIf="cityCurrentWeather && cityForecast">
   <mat-card class="current-weather mat-elevation-z5">
     <div class="fav-container">
@@ -48,41 +48,43 @@
       </button>
     </div>
     <h1>{{ cityCurrentWeather.name }}</h1>
-    <div class="temp-icon">
-      <img class="icon"
-           src="http://openweathermap.org/img/w/{{ cityCurrentWeather.weather[0].icon }}.png"
-           alt="WeatherIcon">
-      <h2 class="temp">{{ round(cityCurrentWeather.main.temp) }}°C</h2>
+    <div class="weather-wrapper">
+      <div class="weather-container-main">
+        <h3>{{ cityCurrentWeather.weather[0].description | titlecase }}</h3>
+        <img class="icon"
+             src="http://openweathermap.org/img/w/{{ cityCurrentWeather.weather[0].icon }}.png"
+             alt="WeatherIcon">
+        <h1>{{ round(cityCurrentWeather.main.temp) }}°C</h1>
+      </div>
+      <div class="weather-container">
+        <div class="value-container">
+          <i class="wi wi-barometer"></i>
+          <span class="weather-value">{{ round(cityCurrentWeather.main.pressure / 1.3333) }}<span class="units"> mm</span></span>
+        </div>
+        <div class="value-container">
+          <i class="wi wi-humidity"></i>
+          <span class="weather-value">{{ cityCurrentWeather.main.humidity }}</span>
+        </div>
+        <div class="value-container">
+          <i class="wi wi-wind {{ wDir.windDirection( cityCurrentWeather.wind.deg ) }}"></i>
+          <span class="weather-value">{{ round(cityCurrentWeather.wind.speed) }}<span class="units"> m/sec</span></span>
+        </div>
+        <div class="value-container">
+          <i class="wi wi-sunrise"></i>
+          <span class="weather-value">{{ cityCurrentWeather.sys.sunrise*1000 | date: 'H:mm' }}</span>
+        </div>
+        <div class="value-container">
+          <i class="wi wi-sunset"></i>
+          <span class="weather-value">{{ cityCurrentWeather.sys.sunset*1000 | date: 'H:mm' }}</span>
+        </div>
+      </div>
     </div>
-    <div>
-      <mat-icon>vertical_align_bottom</mat-icon>
-      <span>{{ round(cityCurrentWeather.main.pressure / 1.3333) }}</span>
-    </div>
-    <div>
-      <mat-icon>invert_colors</mat-icon>
-      <span>{{ cityCurrentWeather.main.humidity }}</span>
-    </div>
-    <div>
-      <mat-icon>near_me</mat-icon>
-      <span>{{ cityCurrentWeather.wind.speed }}</span>
-      <span>{{ cityCurrentWeather.wind.deg }}</span>
-    </div>
-    <div>
-      <mat-icon>wb_sunny</mat-icon>
-      <span>{{ cityCurrentWeather.sys.sunrise*1000 | date: 'H:mm' }}</span>
-    </div>
-    <div>
-      <mat-icon>brightness_3</mat-icon>
-      <span>{{ cityCurrentWeather.sys.sunset*1000| date: 'H:mm' }}</span>
-    </div>
-    <div>
-      <mat-icon>access_time</mat-icon>
-      <span>{{ cityCurrentWeather.dt*1000 | date: 'H:mm' }}</span>
-    </div>
-    <span>{{ cityCurrentWeather.weather[0].main }}</span>
-    <span>{{ cityCurrentWeather.weather[0].description | titlecase }}</span>
 
 
+    <mat-divider class="divider"></mat-divider>
+    <div class="value-container">
+      <span>{{ cityCurrentWeather.dt*1000 | date: 'dd LLLL y HH:mm' }}</span>
+    </div>
   </mat-card>
   <mat-card class="current-forecast mat-elevation-z5">
     <mat-tab-group>
@@ -124,7 +126,7 @@
           <mat-divider></mat-divider>
           <tr>
             <td>Direction</td>
-            <td *ngFor="let item of sortedCityForecast[i]">{{ round(item.wind.deg) }}</td>
+            <td *ngFor="let item of sortedCityForecast[i]"><i class="wi wi-wind {{ wDir.windDirection( item.wind.deg ) }}"></i></td>
           </tr>
         </table>
       </mat-tab>

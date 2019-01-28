@@ -9,7 +9,6 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   slidesPerView: 3,
-  spaceBetween: 30,
   direction: 'horizontal',
   navigation: {
     nextEl: '.swiper-button-next',

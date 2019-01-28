@@ -25,6 +25,11 @@ export class CityList {
     name: 'Kherson',
     id: 706448,
     isFav: false
+  },
+  {
+    name: 'Ivano-Frankivsk',
+    id: 707471,
+    isFav: false
   }];
 }
 export class WindDir {

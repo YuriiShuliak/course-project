@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ICity, ICityWeather, IFavorites } from 'src/app/modules/common/models/weather.model';
 import { AuthService } from 'src/app/modules/common/services/auth.service';
 import { WeatherService } from 'src/app/modules/common/services/weather.service';
-import { CityList } from './../../../common/models/data.model';
+import { CityList, WindDir } from './../../../common/models/data.model';
 
 
 @Component({
@@ -24,16 +25,26 @@ export class MainComponent implements OnInit {
   starType: string;
   currentCityId: number = 703448;
   favorites: IFavorites = { cityId: [] };
+  cityName: string = 'Kiev';
 
 
-  constructor(private _weatherService: WeatherService, private _cityList: CityList, public auth: AuthService) {
-
+  constructor(
+    private _weatherService: WeatherService,
+    private _cityList: CityList,
+    public auth: AuthService,
+    private _actRoute: ActivatedRoute,
+    private _route: Router,
+    public wDir: WindDir
+  ) {
+    this._actRoute.queryParams.subscribe(params => {
+      if (params.name) this.cityName = params.name;
+    });
   }
 
   ngOnInit() {
     this.getFavorites();
-    this.getCityWeather('Kiev');
-    this.getCityForecast('Kiev');
+    this.showWeather(this.cityName);
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -46,13 +57,15 @@ export class MainComponent implements OnInit {
     list.length ? this.isCorrectCity = false : this.isCorrectCity = true;
     return list;
   }
-  getCityWeather(cityName: string): void {
+  getCityWeather(cityName: string) {
     this.showSpinner = true;
     let city = this._cityList.cityList.find(o => o.name === cityName);
     if (!city) {
       this.showSpinner = false;
       alert('No city in database');
-      return;
+      this._route.navigate(['']);
+      window.location.reload();
+      return 'error';
     }
     this.currentCityId = city.id;
     this.renderStar();
@@ -70,8 +83,7 @@ export class MainComponent implements OnInit {
     let city = this._cityList.cityList.find(o => o.name === cityName);
     if (!city) {
       this.showSpinner = false;
-      alert('No city in database');
-      return;
+
     }
     this._weatherService.getCityForecast(city.id)
       .subscribe(res => {
@@ -85,10 +97,14 @@ export class MainComponent implements OnInit {
   round(value: number): number {
     return Math.round(value);
   }
+  showWeather(name) {
+    if (!this.getCityWeather(name)) {
+      this.getCityForecast(name);
+    }
+  }
   onEnter(event) {
     if (event.keyCode === 13) {
-      this.getCityWeather(this.myControl.value);
-      this.getCityForecast(this.myControl.value);
+      this.showWeather(this.myControl.value);
     }
   }
   sortByDate(array: Array<any>) {

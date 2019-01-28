@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { WindDir } from 'src/app/modules/common/models/data.model';
 import { ICityWeather } from './../../../common/models/weather.model';
 
@@ -19,9 +20,10 @@ export class CardFavoriteComponent implements OnInit {
     this._currentWeather = cityCurrentWeather;
   }
 
-  constructor(public wDir: WindDir) { }
+  constructor(public wDir: WindDir, private router: Router) { }
 
   ngOnInit() {
+    console.log(this._currentWeather);
 
   }
 
@@ -30,5 +32,8 @@ export class CardFavoriteComponent implements OnInit {
   }
   round(value: number): number {
     return Math.round(value);
+  }
+  showDetailes() {
+    this.router.navigate([''], { queryParams: { 'name': this._currentWeather.name } });
   }
 }

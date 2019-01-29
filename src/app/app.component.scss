@@ -8,11 +8,6 @@
 .search {
   margin: 0 auto;
 }
-app-main {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-}
 .user-photo {
   width: 35px;
   height: 35px;
@@ -22,4 +17,8 @@ app-main {
 .auth-container {
   display: flex;
   align-items: center;
+}
+.date {
+  margin-left: 4%;
+  font-size: 15px;
 }

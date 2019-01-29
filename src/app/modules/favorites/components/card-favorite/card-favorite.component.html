@@ -2,6 +2,7 @@
           *ngIf="_currentWeather">
   <div class="delete">
     <button mat-icon-button
+            matTooltip="Remove from Favorites"
             (click)="deleteFromFavorites()"
             color="primery">
       <mat-icon>close</mat-icon>
@@ -10,24 +11,24 @@
   <h1>{{ _currentWeather.name}}</h1>
   <mat-divider></mat-divider>
   <div class="main-container">
-    <h3>{{ _currentWeather.weather[0].main}}</h3>
+    <h3 class="description">{{ _currentWeather.weather[0].main}}</h3>
     <img src="http://openweathermap.org/img/w/{{ _currentWeather.weather[0].icon }}.png">
-    <h2>{{ round(_currentWeather.main.temp) | temp }}°C</h2>
+    <h2>{{ round(_currentWeather.main.temp) | temp }}<span class="units"> °C</span></h2>
   </div>
   <mat-divider></mat-divider>
   <div class="item-container">
     <span class="item-name">Pressure</span>
-    <span>{{ round(_currentWeather.main.pressure / 1.3333) }} mm</span>
+    <span class="weather-value">{{ round(_currentWeather.main.pressure / 1.3333) }}<span class="units"> mm</span></span>
   </div>
   <mat-divider></mat-divider>
   <div class="item-container">
     <span class="item-name">Humidity</span>
-    <span>{{ _currentWeather.main.humidity }} %</span>
+    <span class="weather-value">{{ _currentWeather.main.humidity }}<span class="units"> %</span></span>
   </div>
   <mat-divider></mat-divider>
   <div class="item-container">
     <span class="item-name">Wind</span>
-    <span>{{ round(_currentWeather.wind.speed) }} m/sec</span>
+    <span class="weather-value">{{ round(_currentWeather.wind.speed) }}<span class="units"> m/sec</span></span>
   </div>
   <mat-divider></mat-divider>
   <div class="item-container">

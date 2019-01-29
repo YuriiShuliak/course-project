@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -34,10 +35,14 @@ export class MainComponent implements OnInit {
     public auth: AuthService,
     private _actRoute: ActivatedRoute,
     private _route: Router,
-    public wDir: WindDir
+    public wDir: WindDir,
+    private snackBar: MatSnackBar
   ) {
     this._actRoute.queryParams.subscribe(params => {
-      if (params.name) this.cityName = params.name;
+      if (!params.name) return;
+      let city = this._cityList.cityList.find(i => i.name === params.name);
+      if (!city && params.name) return this.openSnackBar();
+      this.cityName = params.name;
     });
   }
 
@@ -62,9 +67,9 @@ export class MainComponent implements OnInit {
     let city = this._cityList.cityList.find(o => o.name === cityName);
     if (!city) {
       this.showSpinner = false;
-      alert('No city in database');
+      this.openSnackBar();
       this._route.navigate(['']);
-      window.location.reload();
+
       return 'error';
     }
     this.currentCityId = city.id;
@@ -148,6 +153,9 @@ export class MainComponent implements OnInit {
   }
   toggleMatTooltipText(): string {
     return this.starType === 'star' ? 'Remove from Favorites' : 'Add to Favorites';
+  }
+  openSnackBar() {
+    this.snackBar.open('No city in database', '', { duration: 1500, verticalPosition: 'top' });
   }
 }
 

@@ -52,7 +52,7 @@
       <div class="weather-container-main">
         <h3 class="description">{{ cityCurrentWeather.weather[0].description | titlecase }}</h3>
         <img class="icon"
-             src="http://openweathermap.org/img/w/{{ cityCurrentWeather.weather[0].icon }}.png"
+             src="https://openweathermap.org/img/w/{{ cityCurrentWeather.weather[0].icon }}.png"
              alt="WeatherIcon">
         <h1>{{ round(cityCurrentWeather.main.temp) | temp }}<span class="units"> °C</span></h1>
       </div>
@@ -96,7 +96,7 @@
           <mat-divider></mat-divider>
           <tr>
             <td></td>
-            <td *ngFor="let item of sortedCityForecast[i]"><img src="http://openweathermap.org/img/w/{{ item.weather[0].icon }}.png"
+            <td *ngFor="let item of sortedCityForecast[i]"><img src="https://openweathermap.org/img/w/{{ item.weather[0].icon }}.png"
                    alt="WeatherIcon"></td>
           </tr>
           <mat-divider></mat-divider>

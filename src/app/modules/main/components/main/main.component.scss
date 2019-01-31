@@ -81,7 +81,7 @@ tr {
 }
 .weather-value {
   margin-left: 10px;
-  font-size: 25px;
+  font-size: 20px;
 }
 .units {
   font-size: 15px;
@@ -91,13 +91,14 @@ tr {
   padding: 15px 0;
 }
 h1 {
-  margin: 15px 0;
-  font-size: 35px;
+  margin: 0 0 15px;
+  font-size: 30px;
   font-weight: 400;
+  color: #3f51b5;
 }
 .description {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 400;
   margin: 10px 0;
 }
 .temp {
@@ -116,8 +117,12 @@ h1 {
   .weather-wrapper {
     flex-direction: column;
   }
-  .current-weather, .current-forecast {
+  .current-weather {
     width: 100%;
+  }
+  .current-forecast {
+    width: 100%;
+    margin-top: 10px;
   }
   .current-weather-wrapper {
     flex-direction: column;

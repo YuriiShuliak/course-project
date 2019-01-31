@@ -17,7 +17,6 @@ export class FavoritesComponent implements OnInit {
   constructor(private _weatherService: WeatherService, private _cityList: CityList) { }
 
   ngOnInit() {
-    this.showSpinner = true;
     this.getFavorites();
     this.favorites.cityId.forEach(i => this.getCityWeather(i));
   }
@@ -27,6 +26,7 @@ export class FavoritesComponent implements OnInit {
     this.favorites = JSON.parse(localStorage.getItem('favorites'));
   }
   getCityWeather(cityId: number): void {
+    this.showSpinner = true;
     this._weatherService.getCityWeather(cityId)
       .subscribe(res => {
         this.showSpinner = false;

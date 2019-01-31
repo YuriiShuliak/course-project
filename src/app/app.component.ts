@@ -56,8 +56,4 @@ export class AppComponent implements DoCheck {
   logout() {
     this.auth.logout();
   }
-  deleteFav(event) {
-    console.log(event);
-
-  }
 }

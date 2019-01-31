@@ -1,6 +1,7 @@
 mat-card {
-  width: 300px;
+  width: 50%;
   background-color: #eeecff;
+  margin: 0 auto;
 }
 .delete {
   display: flex;
@@ -50,4 +51,14 @@ h2 {
 .weather-value {
   margin-left: 10px;
   font-size: 20px;
+}
+@media screen and (max-width: 600px) {
+   mat-card {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 400px) {
+   mat-card {
+    width: 90%;
+  }
 }

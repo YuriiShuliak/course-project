@@ -1,8 +1,14 @@
-.cards-container {
+swiper {
   margin: 15px;
 }
 h2 {
   margin: 20px auto;
   font-weight: 400;
   text-align: center;
+}
+mat-spinner {
+    position: absolute;
+    top: 40%;
+    z-index: 10;
+    left: 50%;
 }

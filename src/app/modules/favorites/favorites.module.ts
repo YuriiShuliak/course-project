@@ -8,8 +8,9 @@ import { CardFavoriteComponent } from './components/card-favorite/card-favorite.
 import { FavoritesComponent } from './components/favorites/favorites.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  slidesPerView: 3,
+  slidesPerView: 1,
   direction: 'horizontal',
+  spaceBetween: 20,
   centeredSlides: true,
   navigation: {
     nextEl: '.swiper-button-next',

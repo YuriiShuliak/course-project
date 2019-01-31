@@ -48,7 +48,7 @@
       </button>
     </div>
     <h1>{{ cityCurrentWeather.name }}</h1>
-    <div class="weather-wrapper">
+    <div class="current-weather-wrapper">
       <div class="weather-container-main">
         <h3 class="description">{{ cityCurrentWeather.weather[0].description | titlecase }}</h3>
         <img class="icon"
@@ -69,11 +69,11 @@
           <i class="wi wi-wind {{ wDir.windDirection( cityCurrentWeather.wind.deg ) }}"></i>
           <span class="weather-value">{{ round(cityCurrentWeather.wind.speed) }}<span class="units"> m/sec</span></span>
         </div>
-        <div class="value-container">
+        <div class="value-container sunrise">
           <i class="wi wi-sunrise"></i>
           <span class="weather-value">{{ cityCurrentWeather.sys.sunrise*1000 | date: 'H:mm' }}</span>
         </div>
-        <div class="value-container">
+        <div class="value-container sunset">
           <i class="wi wi-sunset"></i>
           <span class="weather-value">{{ cityCurrentWeather.sys.sunset*1000 | date: 'H:mm' }}</span>
         </div>

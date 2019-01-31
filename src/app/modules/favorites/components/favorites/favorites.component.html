@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="showSpinner"></mat-spinner>
 <swiper [config]="config"
         *ngIf="cityCurrentWeather.length"
         [(index)]="index">
@@ -8,4 +9,4 @@
     </app-card-favorite>
   </div>
 </swiper>
-<h2 *ngIf="!cityCurrentWeather.length">No Favorites</h2>
+<h2 *ngIf="favorites.cityId.length === 0">No Favorites</h2>

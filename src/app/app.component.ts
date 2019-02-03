@@ -41,7 +41,7 @@ export class AppComponent implements DoCheck {
       this.routingLink = '/favorites';
     }
   }
-  routingToggle() {
+  routingToggle(): void {
     if (this.routingTitle === 'Favorites') {
       this.routingTitle = 'Close';
       this.routingLink = '';
@@ -50,10 +50,10 @@ export class AppComponent implements DoCheck {
     this.routingTitle = 'Favorites';
     this.routingLink = '/favorites';
   }
-  login() {
+  login(): void {
     this.auth.login();
   }
-  logout() {
+  logout(): void {
     this.auth.logout();
   }
 }

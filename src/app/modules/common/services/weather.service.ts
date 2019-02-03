@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICityWeather } from '../models/weather.model';
 
-
 @Injectable()
 
 export class WeatherService {

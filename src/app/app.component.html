@@ -4,7 +4,6 @@
     <span>WeatherApp</span>
     <span class="date">{{date | date}}</span>
     <span class="example-spacer"></span>
-
     <div class="auth-container"
          *ngIf="auth.afAuth.user | async ">
       <a mat-stroked-button
@@ -23,7 +22,6 @@
       <button (click)="login()"
               mat-icon-button>
         <mat-icon svgIcon="login"></mat-icon>
-
       </button>
     </ng-template>
   </mat-toolbar-row>

@@ -15,10 +15,10 @@ export class AuthService {
     })
   }
 
-  login() {
+  login(): void {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
-  logout() {
+  logout(): void {
     this.isAuth = false;
     this.afAuth.auth.signOut();
   }
